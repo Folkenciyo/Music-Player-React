@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Musicplayer from "./musicplayer.jsx";
+import Music from "./music.jsx";
 
 const URL = "https://assets.breatheco.de/apis/sound/songs";
 
 const Home = () => {
 	const [sounds, setSounds] = useState([]);
 	const [soundsComponents, setSoundsComponents] = useState([]);
+	const [currentSong, setCurrentSong] = useState({ name: "", url: "" });
 
 	useEffect(() => {
 		fetch(URL)
@@ -13,13 +14,9 @@ const Home = () => {
 				if (response.ok) {
 					return response.json();
 				}
-				throw new Error("Fail");
 			})
 			.then(responseAsJSON => {
 				setSounds(responseAsJSON);
-			})
-			.catch(error => {
-				console.log(error);
 			});
 	}, []);
 
@@ -28,17 +25,32 @@ const Home = () => {
 			setSoundsComponents(
 				sounds.map((sound, index) => {
 					return (
-						<Musicplayer name={sound.name} key={index.toString()} />
+						<Music
+							song={sound}
+							key={index.toString()}
+							selectsong={setSong}
+						/>
 					);
 				})
 			);
 		}
 	}, [sounds]);
 
+	//cambia de cancion
+	const setSong = song => {
+		setCurrentSong(song);
+	};
+
 	return (
 		<div>
 			<ul>{soundsComponents}</ul>
-			<audio></audio>
+			<audio
+				controls
+				autoPlay
+				src={"https://assets.breatheco.de/apis/sound/".concat(
+					currentSong.url
+				)}
+			/>
 		</div>
 	);
 };
