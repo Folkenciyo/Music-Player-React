@@ -4,6 +4,7 @@ import Music from "./music.jsx";
 const URL = "https://assets.breatheco.de/apis/sound/songs";
 
 const Home = () => {
+	const AUDIO = document.querySelector("audio");
 	const [sounds, setSounds] = useState([]);
 	const [soundsComponents, setSoundsComponents] = useState([]);
 	const [currentSong, setCurrentSong] = useState({ name: "", url: "" });
@@ -41,6 +42,24 @@ const Home = () => {
 		setCurrentSong(song);
 	};
 
+	const previousSong = () => {
+		let currentIndex = sounds.indexOf(currentSong);
+		if (currentIndex === 0) {
+			setCurrentSong(sounds[sounds.length - 1]);
+		} else {
+			setCurrentSong(sounds[currentIndex - 1]);
+		}
+	};
+
+	const nextSong = () => {
+		let currentIndex = sounds.indexOf(currentSong);
+		if (currentIndex === sounds.length - 1) {
+			setCurrentSong(sounds[0]);
+		} else {
+			setCurrentSong(sounds[currentIndex + 1]);
+		}
+	};
+
 	return (
 		<div>
 			<ul>{soundsComponents}</ul>
@@ -51,6 +70,30 @@ const Home = () => {
 					currentSong.url
 				)}
 			/>
+			<button
+				onClick={() => {
+					previousSong();
+				}}>
+				Back{" "}
+			</button>
+			<button
+				onClick={() => {
+					AUDIO.play();
+				}}>
+				play
+			</button>
+			<button
+				onClick={() => {
+					AUDIO.pause();
+				}}>
+				pause
+			</button>
+			<button
+				onClick={() => {
+					nextSong();
+				}}>
+				next
+			</button>
 		</div>
 	);
 };
