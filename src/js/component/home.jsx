@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Music from "./music.jsx";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Table from "react-bootstrap/Table";
 
 const URL = "https://assets.breatheco.de/apis/sound/songs";
 
@@ -60,40 +64,88 @@ const Home = () => {
 		}
 	};
 
+	const shuffleSong = () => {
+		setCurrentSong(sounds[Math.floor(Math.random() * sounds.length)]);
+	};
+
 	return (
-		<div>
-			<ul>{soundsComponents}</ul>
-			<audio
-				controls
-				autoPlay
-				src={"https://assets.breatheco.de/apis/sound/".concat(
-					currentSong.url
-				)}
-			/>
-			<button
-				onClick={() => {
-					previousSong();
-				}}>
-				Back{" "}
-			</button>
-			<button
-				onClick={() => {
-					AUDIO.play();
-				}}>
-				play
-			</button>
-			<button
-				onClick={() => {
-					AUDIO.pause();
-				}}>
-				pause
-			</button>
-			<button
-				onClick={() => {
-					nextSong();
-				}}>
-				next
-			</button>
+		<div className="bodyall container-fluid">
+			<div className="text-effect">
+				<h1 className="neon" data-text="Spot-IT-V">
+					Spot-IT-V
+				</h1>
+				<div className="gradient"></div>
+				<div className="spotlight"></div>
+			</div>
+			<div className="card">
+				<div className="list">
+					<ul>{soundsComponents}</ul>
+					<audio
+						controls
+						autoPlay
+						src={"https://assets.breatheco.de/apis/sound/".concat(
+							currentSong.url
+						)}
+					/>
+				</div>
+			</div>
+			<div className="botones">
+				<a
+					href="#"
+					onClick={() => {
+						previousSong();
+					}}>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<i className="fas fa-fast-backward"></i>
+				</a>
+				<a
+					href="#"
+					onClick={() => {
+						AUDIO.play();
+					}}>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<i className="fas fa-play-circle"></i>
+				</a>
+				<a
+					href="#"
+					onClick={() => {
+						shuffleSong();
+					}}>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<i className="fas fa-random"></i>
+				</a>
+				<a
+					href="#"
+					onClick={() => {
+						AUDIO.pause();
+					}}>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<i className="fas fa-pause-circle"></i>
+				</a>
+				<a
+					href="#"
+					onClick={() => {
+						nextSong();
+					}}>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<i className="fas fa-fast-forward"></i>
+				</a>
+			</div>
 		</div>
 	);
 };
