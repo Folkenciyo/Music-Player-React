@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Music from "./music.jsx";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Table from "react-bootstrap/Table";
+
 
 const URL = "https://assets.breatheco.de/apis/sound/songs";
 
